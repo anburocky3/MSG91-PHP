@@ -1,4 +1,4 @@
-# Send SMS seemlessy via MSG91 Provider.
+# Send SMS Seemlessy with MSG91
 
 _This library requires a minimum PHP version of 7.4_
 
@@ -7,7 +7,7 @@ _This library requires a minimum PHP version of 7.4_
 [![Total Downloads](https://img.shields.io/packagist/dt/anburocky3/msg91-php.svg?style=flat-square)](https://packagist.org/packages/anburocky3/msg91-php)
 [![Follow Anbuselvan Rocky](https://img.shields.io/github/followers/anburocky3?style=social)](https://github.com/anburocky3)
 
-
+<img src="https://miro.medium.com/max/768/1*q3cjsxjgXw8q6SX34t8jYg.png"  alt="Msg91 API integration"/>
 
 
 This is a **PHP Client** for [Msg91 APIs](https://docs.msg91.com/collection/msg91-api-integration/5/pages/139). Before using it, please make sure you have an account on [Msg91](https://msg91.com/) and have an **Authkey** (Msg91 Dashboard > API > Configure).
