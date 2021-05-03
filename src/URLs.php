@@ -3,7 +3,6 @@
 
 namespace Anburocky3\Msg91;
 
-
 class URLs
 {
     /**

@@ -13,7 +13,7 @@ class SendRequest extends Request
     {
         parent::validate($payload);
         $flow_id = $payload['flow_id'] ?? "";
-        if (!$flow_id) {
+        if (! $flow_id) {
             $this->validator->addError('flow_id', 'Please provide a Flow ID for the sms.');
         }
     }

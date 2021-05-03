@@ -6,7 +6,6 @@ use Anburocky3\Msg91\OTP\OTPService;
 use Anburocky3\Msg91\SMS\SMSService;
 use GuzzleHttp\Client as GuzzleHttpClient;
 
-
 /**
  * Class Client
  * @package Anburocky3\Msg91

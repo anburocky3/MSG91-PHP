@@ -44,6 +44,7 @@ class SMSService extends Service
     public function to($mobiles = null)
     {
         $this->options->to($mobiles);
+
         return $this;
     }
 
@@ -55,6 +56,7 @@ class SMSService extends Service
     public function recipients($recipients = null)
     {
         $this->options->recipients($recipients);
+
         return $this;
     }
 
@@ -66,6 +68,7 @@ class SMSService extends Service
     public function flow($flow_id = null)
     {
         $this->options->flow($flow_id);
+
         return $this;
     }
 
@@ -77,6 +80,7 @@ class SMSService extends Service
     public function content($message = '')
     {
         $this->options->content($message);
+
         return $this;
     }
 
@@ -89,6 +93,7 @@ class SMSService extends Service
     public function variable(string $name, $value = null): self
     {
         $this->options->variable($name, $value);
+
         return $this;
     }
 }

@@ -44,6 +44,7 @@ abstract class Service
     public function to($mobile = null)
     {
         $this->getOptions()->to($mobile);
+
         return $this;
     }
 
@@ -55,6 +56,7 @@ abstract class Service
     public function from($sender_id = null)
     {
         $this->getOptions()->from($sender_id);
+
         return $this;
     }
 
@@ -66,6 +68,7 @@ abstract class Service
     public function message($message = '')
     {
         $this->getOptions()->message($message);
+
         return $this;
     }
 
@@ -77,6 +80,7 @@ abstract class Service
     public function options($options = null)
     {
         $this->getOptions()->mergeWith($options);
+
         return $this;
     }
 

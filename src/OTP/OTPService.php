@@ -41,6 +41,7 @@ class OTPService extends Service
     public function to($mobile = null)
     {
         $this->options->to($mobile);
+
         return $this;
     }
 
@@ -70,6 +71,7 @@ class OTPService extends Service
     protected function method(?string $method = ''): OTPService
     {
         $this->options->method($method);
+
         return $this;
     }
 
@@ -80,6 +82,7 @@ class OTPService extends Service
     public function template($template_id = null): OTPService
     {
         $this->options->template($template_id);
+
         return $this;
     }
 
