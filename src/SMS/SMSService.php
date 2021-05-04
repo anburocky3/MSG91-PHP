@@ -5,17 +5,21 @@ namespace Anburocky3\Msg91\SMS;
 use Anburocky3\Msg91\Client;
 use Anburocky3\Msg91\Support\Service;
 
+/**
+ * Class SMSService
+ * @package Anburocky3\Msg91\SMS
+ */
 class SMSService extends Service
 {
     /**
      * Options for Request
-     * @var \Anburocky3\Msg91\SMS\Options
+     * @var Options
      */
-    protected $options;
+    protected \Anburocky3\Msg91\Contracts\Options $options;
 
     /**
      * Create a new service instance
-     * @param \Anburocky3\Msg91\Client $client
+     * @param Client $client
      * @param int|string|\Anburocky3\Msg91\Contracts\Options $payload
      * @return void
      */
@@ -29,9 +33,9 @@ class SMSService extends Service
 
     /**
      * Send sms
-     * @return \Anburocky3\Msg91\Requests\Request
+     * @return \Anburocky3\Msg91\Support\Response
      */
-    public function send()
+    public function send(): \Anburocky3\Msg91\Support\Response
     {
         return $this->sendRequest(SendRequest::class);
     }
@@ -41,9 +45,9 @@ class SMSService extends Service
      * @param int|null $mobile - recipients's mobile numbers
      * @return $this
      */
-    public function to($mobiles = null)
+    public function to(int $mobile = null)
     {
-        $this->options->to($mobiles);
+        $this->options->to($mobile);
 
         return $this;
     }
@@ -53,7 +57,7 @@ class SMSService extends Service
      * @param array|null $recipients - recipients with mobile number and placeholders
      * @return $this
      */
-    public function recipients($recipients = null)
+    public function recipients(array $recipients = null): SMSService
     {
         $this->options->recipients($recipients);
 
@@ -65,7 +69,7 @@ class SMSService extends Service
      * @param string|null $flow_id - flow id for sms
      * @return $this
      */
-    public function flow($flow_id = null)
+    public function flow(string $flow_id = null): SMSService
     {
         $this->options->flow($flow_id);
 
@@ -77,7 +81,7 @@ class SMSService extends Service
      * @param string|null $message
      * @return $this
      */
-    public function content($message = '')
+    public function content(?string $message = ''): SMSService
     {
         $this->options->content($message);
 
@@ -87,10 +91,10 @@ class SMSService extends Service
     /**
      * Set a variable's value for all the recipients
      * @param string $name - name of the variable in the template
-     * @param string|number|null $value - value for the variable to be placed in template
+     * @param string|null $value - value for the variable to be placed in template
      * @return $this
      */
-    public function variable(string $name, $value = null): self
+    public function variable(string $name, string $value = null): self
     {
         $this->options->variable($name, $value);
 

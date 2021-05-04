@@ -4,7 +4,7 @@
 namespace Anburocky3\Msg91\OTP;
 
 use Anburocky3\Msg91\Client;
-use Anburocky3\Msg91\Response;
+use Anburocky3\Msg91\Support\Response;
 use Anburocky3\Msg91\Support\Service;
 
 /**
@@ -17,7 +17,7 @@ class OTPService extends Service
      * Options for Request
      * @var Options
      */
-    protected $options;
+    protected \Anburocky3\Msg91\Contracts\Options $options;
 
     /**
      * Create a new service instance
@@ -38,7 +38,7 @@ class OTPService extends Service
      * @param int|null $mobile - receipient's mobile number
      * @return $this
      */
-    public function to($mobile = null)
+    public function to(int $mobile = null)
     {
         $this->options->to($mobile);
 

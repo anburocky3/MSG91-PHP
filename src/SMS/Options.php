@@ -5,6 +5,10 @@ namespace Anburocky3\Msg91\SMS;
 use Anburocky3\Msg91\Config;
 use Anburocky3\Msg91\Options as Msg91Options;
 
+/**
+ * Class Options
+ * @package Anburocky3\Msg91\SMS
+ */
 class Options extends Msg91Options
 {
     /**
@@ -33,6 +37,10 @@ class Options extends Msg91Options
         return $this;
     }
 
+    /**
+     * @param null $mobile
+     * @return array|array[]
+     */
     protected function transformMobileNumbersToRecipients($mobile = null): array
     {
         if (! $mobile) {
@@ -55,7 +63,7 @@ class Options extends Msg91Options
      * Set the flow id for sms
      * You can get/create your flow id from MSG91 Panel
      */
-    public function flow($flow_id)
+    public function flow($flow_id): Options
     {
         $this->setPayloadFor('flow_id', $flow_id);
 

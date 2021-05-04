@@ -2,22 +2,28 @@
 
 namespace Anburocky3\Msg91\Support;
 
+
+use Anburocky3\Msg91\Client;
 use Anburocky3\Msg91\Contracts\Options;
 use GuzzleHttp\Client as HttpClient;
 
+/**
+ * Class Service
+ * @package Anburocky3\Msg91\Support
+ */
 abstract class Service
 {
     /**
      * Options for Request
-     * @var \Anburocky3\Msg91\Contracts\Options
+     * @var Options
      */
-    protected $options;
+    protected Options $options;
 
     /**
      * The msg91 client instance
-     * @var \Anburocky3\Msg91\Client
+     * @var Client
      */
-    protected $client;
+    protected Client $client;
 
     /**
      * Options for Request
@@ -29,19 +35,19 @@ abstract class Service
 
     /**
      * Get the http client
-     * @return \GuzzleHttp\Client
+     * @return HttpClient
      */
-    protected function getHttpClient()
+    protected function getHttpClient(): HttpClient
     {
         return $this->client->getHttpClient() ?: new HttpClient();
     }
 
     /**
-     * Set the receipient(s)
+     * Set the recipient(s)
      * @param int|null $mobile
      * @return $this
      */
-    public function to($mobile = null)
+    public function to(int $mobile = null)
     {
         $this->getOptions()->to($mobile);
 
@@ -53,7 +59,7 @@ abstract class Service
      * @param int|null $sender_id
      * @return $this
      */
-    public function from($sender_id = null)
+    public function from(int $sender_id = null)
     {
         $this->getOptions()->from($sender_id);
 
@@ -65,7 +71,7 @@ abstract class Service
      * @param string|null $message
      * @return $this
      */
-    public function message($message = '')
+    public function message(?string $message = '')
     {
         $this->getOptions()->message($message);
 
@@ -87,9 +93,9 @@ abstract class Service
     /**
      * Create a new instance of given request
      * @param string $request - Request class name
-     * @return \Anburocky3\Msg91\Response
+     * @return \Anburocky3\Msg91\Support\Response
      */
-    protected function sendRequest(string $request)
+    protected function sendRequest(string $request): Response
     {
         return (new $request($this->getHttpClient(), $this->getOptions()))->handle();
     }
