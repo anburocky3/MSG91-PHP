@@ -7,7 +7,7 @@ use Anburocky3\Msg91\URLs;
 
 class SendRequest extends Request
 {
-    protected $url = URLs::SEND_SMS_URL;
+    protected string $url = URLs::SEND_SMS_URL;
 
     protected function validate(array $payload)
     {

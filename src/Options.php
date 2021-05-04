@@ -17,7 +17,7 @@ abstract class Options implements ContractsOptions, JsonSerializable
      * Payload for the message
      * @var array
      */
-    protected $payload = [];
+    protected array $payload = [];
 
     /**
      * Construct a new Options
@@ -30,11 +30,11 @@ abstract class Options implements ContractsOptions, JsonSerializable
     }
 
     /**
-     * Set the authkey
+     * Set the auth key
      * @param string|null $key
      * @return $this
      */
-    public function key($key = null)
+    public function key($key = null): Options
     {
         $this->setPayloadFor('authkey', $key);
 
@@ -71,7 +71,7 @@ abstract class Options implements ContractsOptions, JsonSerializable
      *
      * @return $this
      */
-    public function unicode()
+    public function unicode(): Options
     {
         $this->setPayloadFor('unicode', 1);
 
@@ -79,11 +79,11 @@ abstract class Options implements ContractsOptions, JsonSerializable
     }
 
     /**
-     * Set the receipient of the message, used in OTP apis
-     * @param int|null $mobile - receipient's mobile number
+     * Set the recipient of the message, used in OTP apis
+     * @param int|null $mobile - recipient's mobile number
      * @return $this
      */
-    protected function mobile($mobile = null)
+    protected function mobile(int $mobile = null): Options
     {
         $this->setPayloadFor('mobile', $mobile);
 
@@ -91,11 +91,11 @@ abstract class Options implements ContractsOptions, JsonSerializable
     }
 
     /**
-     * Set the receipients of the message, used in SMS apis
+     * Set the recipients of the message, used in SMS APIs
      * @param int|null $mobile - receipient's mobile number(s)
      * @return $this
      */
-    protected function mobiles($mobiles = null)
+    protected function mobiles($mobiles = null): Options
     {
         $this->setPayloadFor('mobiles', $mobiles);
 
@@ -107,7 +107,7 @@ abstract class Options implements ContractsOptions, JsonSerializable
      * @param string|null $message
      * @return $this
      */
-    public function content($message = '')
+    public function content(?string $message = ''): Options
     {
         return $this->message($message);
     }
@@ -117,7 +117,7 @@ abstract class Options implements ContractsOptions, JsonSerializable
      * @param string|null $message
      * @return $this
      */
-    public function message($message = '')
+    public function message($message = ''): Options
     {
         $this->setPayloadFor('message', $message);
 
@@ -130,7 +130,7 @@ abstract class Options implements ContractsOptions, JsonSerializable
      * @param mixed $value
      * @return $this
      */
-    protected function setPayloadFor($key, $value)
+    protected function setPayloadFor(string $key, $value): Options
     {
         $this->payload[$key] = $value;
 
@@ -141,7 +141,7 @@ abstract class Options implements ContractsOptions, JsonSerializable
      * Get the payload of the message
      * @return array
      */
-    public function getPayload()
+    public function getPayload(): array
     {
         return $this->payload;
     }
@@ -160,8 +160,8 @@ abstract class Options implements ContractsOptions, JsonSerializable
     }
 
     /**
-     * Get the options's array
-     * @return arra
+     * Get the option's array
+     * @return array
      */
     public function toArray(): array
     {
@@ -171,10 +171,10 @@ abstract class Options implements ContractsOptions, JsonSerializable
     /**
      * Call the given Closure with this instance then return the instance.
      *
-     * @param  callable|null  $callback
+     * @param Closure|null $callback
      * @return $this
      */
-    public function tap(Closure $callback = null)
+    public function tap(Closure $callback = null): Options
     {
         if ($callback) {
             $callback($this);
@@ -188,7 +188,7 @@ abstract class Options implements ContractsOptions, JsonSerializable
      * @param int|string|$this|null $payload
      * @return $this;
      */
-    public function mergeWith($options = null)
+    public function mergeWith($options = null): Options
     {
         // do which ever results in true
         $current_payload = $this->getPayload();
@@ -229,7 +229,7 @@ abstract class Options implements ContractsOptions, JsonSerializable
      * Convert options to json
      * @return array
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return $this->toArray();
     }

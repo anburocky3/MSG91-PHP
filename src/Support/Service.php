@@ -11,7 +11,7 @@ abstract class Service
      * Options for Request
      * @var \Anburocky3\Msg91\Contracts\Options
      */
-    protected $options;
+    protected \Anburocky3\Msg91\SMS\Options $options;
 
     /**
      * The msg91 client instance
