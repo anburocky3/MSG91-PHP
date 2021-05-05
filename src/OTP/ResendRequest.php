@@ -14,5 +14,5 @@ class ResendRequest extends Request
 {
     protected string $url = URLs::OTP_RESEND_URL;
 
-    protected $content_type = RequestOptions::FORM_PARAMS;
+    protected string $contentType = RequestOptions::FORM_PARAMS;
 }

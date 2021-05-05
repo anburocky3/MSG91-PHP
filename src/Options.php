@@ -34,7 +34,7 @@ abstract class Options implements ContractsOptions, JsonSerializable
      * @param string|null $key
      * @return $this
      */
-    public function key($key = null): Options
+    public function key(string $key = null): Options
     {
         $this->setPayloadFor('authkey', $key);
 
@@ -42,8 +42,8 @@ abstract class Options implements ContractsOptions, JsonSerializable
     }
 
     /**
-     * Set the receipients
-     * @param string|null $key
+     * Set the recipients
+     * @param null $mobile
      * @return $this
      */
     public function to($mobile = null)
@@ -59,7 +59,7 @@ abstract class Options implements ContractsOptions, JsonSerializable
      * @param string|null $sender
      * @return $this
      */
-    public function from($sender = null)
+    public function from($sender = null): Options
     {
         $this->setPayloadFor('sender', $sender);
 
@@ -92,7 +92,7 @@ abstract class Options implements ContractsOptions, JsonSerializable
 
     /**
      * Set the recipients of the message, used in SMS APIs
-     * @param int|null $mobile - receipient's mobile number(s)
+     * @param null $mobiles
      * @return $this
      */
     protected function mobiles($mobiles = null): Options
@@ -117,7 +117,7 @@ abstract class Options implements ContractsOptions, JsonSerializable
      * @param string|null $message
      * @return $this
      */
-    public function message($message = ''): Options
+    public function message(?string $message = ''): Options
     {
         $this->setPayloadFor('message', $message);
 
@@ -185,10 +185,10 @@ abstract class Options implements ContractsOptions, JsonSerializable
 
     /**
      * Merge this instance with payload
-     * @param int|string|$this|null $payload
+     * @param null $options
      * @return $this;
      */
-    public function mergeWith($options = null)
+    public function mergeWith($options = null): Options
     {
         // do which ever results in true
         $current_payload = $this->getPayload();

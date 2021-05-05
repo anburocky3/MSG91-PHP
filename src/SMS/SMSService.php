@@ -3,6 +3,7 @@
 namespace Anburocky3\Msg91\SMS;
 
 use Anburocky3\Msg91\Client;
+use Anburocky3\Msg91\Support\Response;
 use Anburocky3\Msg91\Support\Service;
 
 /**
@@ -33,19 +34,19 @@ class SMSService extends Service
 
     /**
      * Send sms
-     * @return \Anburocky3\Msg91\Support\Response
+     * @return Response
      */
-    public function send(): \Anburocky3\Msg91\Support\Response
+    public function send(): Response
     {
         return $this->sendRequest(SendRequest::class);
     }
 
     /**
      * Set the recipients of the message
-     * @param int|null $mobile - recipients's mobile numbers
+     * @param int|array|null $mobile - recipient's mobile numbers
      * @return $this
      */
-    public function to(int $mobile = null)
+    public function to($mobile = null)
     {
         $this->options->to($mobile);
 

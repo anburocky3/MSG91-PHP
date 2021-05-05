@@ -74,7 +74,7 @@ class Options extends Msg91Options
      * Set the flow id for sms
      * You can get/create your flow id from MSG91 Panel
      */
-    public function receiverKey(string $receiver_key = "mobiles")
+    public function receiverKey(string $receiver_key = 'mobiles'): Options
     {
         // remove any "#" included in key (by mistake)
         $receiver_key = str_replace('#', '', $receiver_key);
@@ -104,10 +104,10 @@ class Options extends Msg91Options
     /**
      * Set value for a variable (used in the Flow message template) for all recipients
      * @param string|array $name - name of the variable in the template
-     * @param string|number|null $value - value for the variable to be placed in template
+     * @param string|null $value - value for the variable to be placed in template
      * @return $this
      */
-    public function variable($name, $value = null)
+    public function variable($name, string $value = null): Options
     {
         $variables = $this->variables_mapping;
         if (is_array($name)) {
@@ -143,7 +143,7 @@ class Options extends Msg91Options
      * @param array $recipients This should be an array of recipients with variables
      *  e.g. [['mobiles' => '919999999999', '<var>' => '<value>']]
      */
-    public function recipients($recipients = [])
+    public function recipients(array $recipients = []): Options
     {
         if (! is_array($recipients) || (count($recipients) > 0 && ! is_array($recipients[0]))) {
             // these are mobile number(s)
@@ -165,7 +165,7 @@ class Options extends Msg91Options
      *
      * @return $this
      */
-    public function transactional()
+    public function transactional(): Options
     {
         $this->route(4);
 
@@ -177,7 +177,7 @@ class Options extends Msg91Options
      *
      * @return $this
      */
-    public function promotional()
+    public function promotional(): Options
     {
         $this->route(1);
 
@@ -191,7 +191,7 @@ class Options extends Msg91Options
      * @param int|null $route
      * @return $this
      */
-    public function route($route = null)
+    public function route(int $route = null): Options
     {
         $this->setPayloadFor('route', $route);
 
@@ -203,7 +203,7 @@ class Options extends Msg91Options
      */
     public function resolveConfig(Config $config): self
     {
-        return (new Options)
+        return (new Options())
             ->key($config->get('key'))
             ->tap(function (Options $msg) use ($config) {
                 // set the sender id
@@ -221,7 +221,7 @@ class Options extends Msg91Options
             });
     }
 
-    public function mergeWith($options = null)
+    public function mergeWith($options = null): Msg91Options
     {
         if ($options instanceof self) {
             // merge the payloads

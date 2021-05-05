@@ -35,7 +35,7 @@ class OTPService extends Service
 
     /**
      * Set the receipients of the message
-     * @param int|null $mobile - receipient's mobile number
+     * @param int|null $mobile - recipient's mobile number
      * @return $this
      */
     public function to(int $mobile = null)

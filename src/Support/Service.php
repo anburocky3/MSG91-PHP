@@ -2,7 +2,6 @@
 
 namespace Anburocky3\Msg91\Support;
 
-
 use Anburocky3\Msg91\Client;
 use Anburocky3\Msg91\Contracts\Options;
 use GuzzleHttp\Client as HttpClient;
@@ -59,7 +58,7 @@ abstract class Service
      * @param int|null $sender_id
      * @return $this
      */
-    public function from(int $sender_id = null)
+    public function from(int $sender_id = null): Service
     {
         $this->getOptions()->from($sender_id);
 
@@ -71,7 +70,7 @@ abstract class Service
      * @param string|null $message
      * @return $this
      */
-    public function message(?string $message = '')
+    public function message(?string $message = ''): Service
     {
         $this->getOptions()->message($message);
 
@@ -83,7 +82,7 @@ abstract class Service
      * @param mixed $options
      * @return $this;
      */
-    public function options($options = null)
+    public function options($options = null): Service
     {
         $this->getOptions()->mergeWith($options);
 
@@ -93,7 +92,7 @@ abstract class Service
     /**
      * Create a new instance of given request
      * @param string $request - Request class name
-     * @return \Anburocky3\Msg91\Support\Response
+     * @return Response
      */
     protected function sendRequest(string $request): Response
     {

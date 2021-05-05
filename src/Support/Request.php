@@ -6,6 +6,7 @@ use Anburocky3\Msg91\Contracts\Options;
 use Anburocky3\Msg91\Exceptions\ResponseErrorException;
 use Anburocky3\Msg91\Exceptions\ValidationException;
 use GuzzleHttp\Client as GuzzleHttpClient;
+use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\RequestOptions;
 
 /**
@@ -16,48 +17,48 @@ abstract class Request
 {
     /**
      * Http client for request handling
-     * @var \GuzzleHttp\Client
+     * @var GuzzleHttpClient
      */
-    protected $httpClient;
+    protected GuzzleHttpClient $httpClient;
 
     /**
      * Options for the request
      *
-     * @var \Anburocky3\Msg91\Contracts\Options
+     * @var Options
      */
-    protected $options;
+    protected Options $options;
 
     /**
      * Request Method
      *
      * @var string
      */
-    protected $method = "POST";
+    protected string $method = 'POST';
 
     /**
      * Request url
      *
      * @var string
      */
-    protected string $url = "";
+    protected string $url = '';
 
     /**
      * Content type
      */
-    protected $content_type = RequestOptions::JSON;
+    protected string $contentType = RequestOptions::JSON;
 
     /**
      * Validation instance
      *
-     * @var \Anburocky3\Msg91\Requests\Validator
+     * @var Validator
      */
-    protected $validator;
+    protected Validator $validator;
 
     /**
      * Create a new request instance
      *
-     * @param \GuzzleHttp\Client $httpClient
-     * @param \Anburocky3\Msg91\Contracts\Options $options
+     * @param GuzzleHttpClient $httpClient
+     * @param Options $options
      * @return void
      */
     public function __construct(GuzzleHttpClient $httpClient, Options $options)
@@ -72,14 +73,17 @@ abstract class Request
      *
      * @return array
      */
-    protected function getPayload()
+    protected function getPayload(): array
     {
         return $this->options->toArray();
     }
 
+    /**
+     * @param array $payload
+     */
     protected function validate(array $payload)
     {
-        $token = $payload['authkey'] ?? "";
+        $token = $payload['authkey'] ?? '';
         if (! $token) {
             $this->validator->addError('authkey', 'Authkey is required');
         }
@@ -87,12 +91,12 @@ abstract class Request
 
     /**
      * Send the request and return the response or exception
-     * @return \Anburocky3\Msg91\Response|null
-     * @throws \Anburocky3\Msg91\Exceptions\ResponseErrorException
-     * |\Anburocky3\Msg91\Exceptions\ValidationException
+     * @return Response
+     * @throws ResponseErrorException |ValidationException
      * |\GuzzleHttp\Exception\ClientException
+     * @throws ValidationException
      */
-    public function handle()
+    public function handle(): Response
     {
         $client = $this->httpClient;
         $payload = $this->getPayload();
@@ -104,19 +108,19 @@ abstract class Request
 
         try {
             $resp = $client->{$method}($this->url, [
-                $this->content_type => $payload,
-                "headers" => [
+                $this->contentType => $payload,
+                'headers' => [
                     'authkey' => $payload['authkey'],
                 ],
             ]);
 
             return new Response($resp);
-        } catch (\GuzzleHttp\Exception\ClientException $e) {
+        } catch (ClientException $e) {
             throw new ResponseErrorException(
                 $e->getMessage(),
                 $e->getCode(),
                 $e,
-                (array) json_decode($e->getResponse()->getBody()->getContents())
+                (array)json_decode($e->getResponse()->getBody()->getContents())
             );
         }
     }

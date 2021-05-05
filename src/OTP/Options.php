@@ -11,10 +11,11 @@ use Anburocky3\Msg91\Options as Msg91Options;
  */
 class Options extends Msg91Options
 {
+
+
     /**
-     * Construct a new options
-     * @param mixed $options - initial payload of the message
-     * @return void
+     * Options constructor.
+     * @param null $options
      */
     public function __construct($options = null)
     {
@@ -30,7 +31,7 @@ class Options extends Msg91Options
      * @param int|null $otp
      * @return $this
      */
-    public function otp($otp = null)
+    public function otp(int $otp = null): Options
     {
         $this->setPayloadFor('otp', $otp);
 
@@ -53,7 +54,7 @@ class Options extends Msg91Options
      * Set the template for OTP
      * You can get/create your template id from MSG91 Panel
      */
-    public function template($template_id)
+    public function template($template_id): Options
     {
         $this->setPayloadFor('template_id', $template_id);
 
@@ -62,7 +63,7 @@ class Options extends Msg91Options
 
     /**
      * Set the number of digits in otp. Must be in [4,9]
-     * @param int|null $otp_digits
+     * @param null $otp_length
      * @return  $this
      */
     public function digits($otp_length = null): Options
@@ -73,11 +74,11 @@ class Options extends Msg91Options
     }
 
     /**
-     * Set the expiry time for the otps in minutes
+     * Set the expiry time for the OTPs in minutes
      * @param int|null $minutes
      * @return $this
      */
-    public function expiresInMinutes($minutes = null): Options
+    public function expiresInMinutes(int $minutes = null): Options
     {
         $this->setPayloadFor('otp_expiry', $minutes);
 
@@ -86,12 +87,12 @@ class Options extends Msg91Options
 
     /**
      * Set method for the message ("text" | "voice")
-     * Only usefull for otp retry
+     * Only useful for otp retry
      *
      * @param string|null $via
      * @return $this
      */
-    public function method($via = null): Options
+    public function method(string $via = null): Options
     {
         $this->setPayloadFor('retrytype', $via);
 

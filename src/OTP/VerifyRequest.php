@@ -14,5 +14,5 @@ class VerifyRequest extends Request
 {
     protected string $url = URLs::OTP_VERIFY_URL;
 
-    protected $content_type = RequestOptions::FORM_PARAMS;
+    protected string $contentType = RequestOptions::FORM_PARAMS;
 }

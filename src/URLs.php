@@ -3,6 +3,10 @@
 
 namespace Anburocky3\Msg91;
 
+/**
+ * Class URLs
+ * @package Anburocky3\Msg91
+ */
 class URLs
 {
     /**

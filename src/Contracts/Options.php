@@ -26,19 +26,19 @@ interface Options
      * @param string|null $message
      * @return $this
      */
-    public function message($message = '');
+    public function message(?string $message = ''): Options;
 
     /**
      * Merge options with new options
-     * @param int|string|array|$this|\Closure|null $payload
+     * @param null $options
      * @return $this;
      */
-    public function mergeWith($options = null);
+    public function mergeWith($options = null): Options;
 
     /**
      * Set the sender
      * @param string|null sender id
      * @return $this
      */
-    public function from($sender_id = null);
+    public function from($sender_id = null): Options;
 }

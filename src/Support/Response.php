@@ -5,38 +5,45 @@ namespace Anburocky3\Msg91\Support;
 use Anburocky3\Msg91\Exceptions\ResponseErrorException;
 use GuzzleHttp\Psr7\Response as GuzzleHttpResponse;
 
+/**
+ * Class Response
+ * @package Anburocky3\Msg91\Support
+ */
 class Response
 {
     /**
      * Http client
-     * @var \GuzzleHttp\Psr7\Response
+     * @var GuzzleHttpResponse
      */
-    protected $response;
+    protected GuzzleHttpResponse $response;
 
     /**
-     * Status of the
+     * Status of the response
      * @var int
      */
-    protected $status = 422;
+    protected int $statusCode = 422;
 
     /**
      * Response data
      * @var array
      */
-    protected $data = [];
+    protected array $data = [];
 
     /**
      * Response errors
      * @var array|null
      */
-    protected $errors = null;
+    protected ?array $errors = null;
 
     /**
      * Response message
      * @var string
      */
-    protected $message = "";
+    protected string $message = '';
 
+    /**
+     * @throws ResponseErrorException
+     */
     public function __construct(GuzzleHttpResponse $response)
     {
         $this->response = $response;
@@ -45,6 +52,7 @@ class Response
 
     /**
      * Handle the request
+     * @throws ResponseErrorException
      */
     protected function handle()
     {
@@ -54,33 +62,35 @@ class Response
         if ($body) {
             $this->data = $body;
             if (isset($body['type']) || isset($body['msg_type'])) {
-                $type = isset($body['type']) ? $body['type'] : $body['msg_type'];
-                if ($type === "error") {
+                $type = $body['type'] ?? $body['msg_type'];
+                if ($type === 'error') {
                     $status_code = 422;
                 }
             }
-            $this->message = isset($body['message']) ? $body["message"] : (isset($body['msg']) ? $body['msg'] : "No response message");
+            $this->message = $body['message'] ?? ($body['msg'] ?? 'No response message');
         }
-        $this->status_code = $status_code;
-        if ((int) $status_code / 100 !== 2) {
+        $this->statusCode = $status_code;
+        if ($status_code / 100 !== 2) {
             throw new ResponseErrorException($this->message, $status_code, null, $this->data);
         }
     }
 
     /**
      * Get the response status code
-     * @var int
+     *
+     * @return int
      */
-    public function getStatusCode()
+    public function getStatusCode(): int
     {
-        return $this->status_code;
+        return $this->statusCode;
     }
 
     /**
      * Get the response data
-     * @var array
+     *
+     * @return array
      */
-    public function getData()
+    public function getData(): array
     {
         return $this->data;
     }
@@ -89,7 +99,7 @@ class Response
      * Get the response message
      * @return string
      */
-    public function getMessage()
+    public function getMessage(): string
     {
         return $this->message;
     }
